@@ -9,7 +9,6 @@
           </el-aside>
       <el-main>
         <router-view></router-view>
-        <button @click="b">12</button>
       </el-main>
       
     </el-container>
@@ -23,9 +22,6 @@ export default {
         Aside
     },
     methods:{
-      b(){
-        console.log(this.$router.options.routes[1].children)
-      }
     }
 };
 </script>
@@ -55,6 +51,6 @@ export default {
     padding:20px;
     background-color: #E9EEF3;
     color: #333;
-    text-align: center;
+    /* text-align: center; */
   }
 </style>

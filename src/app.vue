@@ -1,7 +1,7 @@
 <template>
   <el-container>
     <el-header>学生系统</el-header>
-    <!-- <router-view></router-view> -->
+    <router-view></router-view>
   </el-container>
 </template>
 
