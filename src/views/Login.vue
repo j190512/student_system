@@ -65,14 +65,31 @@ export default {
           // alert("submit!");
           setTimeout(() => {
             // console.log(this.ruleForm2.account + "====" + this.ruleForm2.pass);
-            this.$axios
-              .get("/api")
-              .then(res => {
-                this.loading = false;
-                let data = res.data;
-                if (
-                  data.account == this.ruleForm2.account &&
-                  data.pass == this.ruleForm2.pass
+            // this.$axios
+            //   .get("/api")
+            //   .then(res => {
+            //     this.loading = false;
+            //     let data = res.data;
+            //     if (
+            //       data.account == this.ruleForm2.account &&
+            //       data.pass == this.ruleForm2.pass
+            //     ) {
+            //       this.$router.push({path:`/home/freshman`})
+            //     } else {
+            //       this.$notify.error({
+            //         title: "登录失败",
+            //         message: "账号或者密码错误",
+            //         position: "bottom-right",
+            //         duration:1000
+            //       });
+            //     }
+            //   })
+            //   .catch(e => {
+            //     console.log(e);
+            //   });
+             if (
+                  this.ruleForm2.account == 'admin' &&
+                  this.ruleForm2.pass  == '123456'
                 ) {
                   this.$router.push({path:`/home/freshman`})
                 } else {
@@ -83,10 +100,7 @@ export default {
                     duration:1000
                   });
                 }
-              })
-              .catch(e => {
-                console.log(e);
-              });
+
           }, 1000);
         } else {
           console.log("error submit!!");

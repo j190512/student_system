@@ -6,6 +6,7 @@ import 'element-ui/lib/theme-chalk/index.css'
 import VueRouter from 'vue-router'
 import './styles/global.styl'
 import axios from 'axios'
+import store from './store'
 Vue.prototype.$axios = axios
 Vue.use(ElementUI)
 Vue.use(VueRouter)
@@ -21,5 +22,6 @@ VueRouter.prototype.push = function push(location) {
 
 new Vue({
     router,
+    store,
     render: (h)=>h(app)
 }).$mount('#root')
