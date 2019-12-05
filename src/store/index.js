@@ -3,7 +3,6 @@ import Vuex from 'vuex';
 Vue.use(Vuex);
 //假数据
 import Data from '../../mock/data.json'
-
 const state = { //要设置的全局访问的state对象
     data: Data,
 };
@@ -11,7 +10,7 @@ const state = { //要设置的全局访问的state对象
 const getters = {
     getData: (state) => (n) => {
         let temp = state.data.filter(item => item.grade == n)
-        return temp
+        return temp;
     },
     getMajorTotal: (state) => (subject) => {
         let count = 0
@@ -20,7 +19,16 @@ const getters = {
                 count++;
             }
         }
-        return count
+        return count;
+    },
+    getSexTotal:(state) => (n)=>{
+      let count = 0
+      for(let item of state.data){
+        if(item.sex == n){
+          count++;
+        }
+      }
+      return count;
     }
 };
 

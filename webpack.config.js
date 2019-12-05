@@ -24,7 +24,7 @@ let config = {
     entry: ('./src/index.js'),
     output: {
         path: path.join(__dirname, 'dist'),
-        filename: 'bundle.[hash:8].js'
+        filename: 'bundle.[hash:5].js'
     },
     module: {
         rules: [{
@@ -42,7 +42,7 @@ let config = {
                     loader: 'url-loader',
                     options: {
                         litmit: 8192,
-                        name: 'images/[name]-[hash:8].[ext]'
+                        name: 'images/[name]-[hash:5].[ext]'
                     }
                 }]
             }, 
@@ -63,7 +63,11 @@ let config = {
             },
             {
                 test: /\.(eot|svg|ttf|woff|woff2)(\?\S*)?$/,
-                loader: 'file-loader'
+                loader: 'url-loader',
+                //自配webpack 用url-loader，避免element ui的字体图标找不到 
+                options:{
+                  name:'style/[name]-[hash:5].[ext]'
+                }
             }
 
         ]
@@ -80,7 +84,7 @@ let config = {
         }),
         new VueLoaderPlugin(),
         new MiniCssExtractPlugin({
-                filename: 'style/[name].css',
+                filename: 'style/[path]-[name]-[hash:5].css',
             })
     ]
 }

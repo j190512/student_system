@@ -141,20 +141,28 @@ export default {
       // item=this.$store.state.data.filter(item => item.id == this.selectStu)
       if (this.selectStu != "") {
         this.loading = true;
-        for (let i of this.$store.state.data) {
-          if (i.id == this.selectStu) {
-            item = { ...i };
-            item.name += `(${i.grade}年级)`;
+        for (let i in this.$store.state.data) {
+          if (this.$store.state.data[i].id == this.selectStu) {
+            item = { ...this.$store.state.data[i] };
+            item.name += `(${this.$store.state.data[i].grade}年级)`;
             temp.push(item);
             this.tableData = temp;
             this.loading = false;
+            return;
+          }
+          if (i == this.$store.state.data.length-1) {
+            this.$message({
+              type: "error",
+              message: "没有找到数据!"
+            });
+            this.getData();
             return;
           }
         }
       } else {
         this.$message({
           type: "error",
-          message: "没有数据!"
+          message: "没有符合数据!"
         });
         this.getData();
       }
@@ -238,29 +246,44 @@ export default {
 };
 </script>
 <style lang='stylus' scoped>
-.wrap >>> .el-table thead
-  color black
-.wrap
-  margin-left 30px
-  padding 30px
-.wrap >>>.el-table--enable-row-hover .el-table__body tr:hover>td
-  background-color #b3c0d1 !important
-.bg-purple
-  background #d3dce6
-.grid-content
-  border-radius 4px
-  min-height 50px
-  position relative
-  .select-new
-    position absolute
-    left 50px
-    top 4px
-  .delBatch
-    position absolute
-    left 20px
-    top 10px
-  .pages
-    position absolute
-    top 10px
-    left 30%
+.wrap >>> .el-table thead {
+  color: black;
+}
+
+.wrap {
+  margin-left: 30px;
+  padding: 30px;
+}
+
+.wrap >>>.el-table--enable-row-hover .el-table__body tr:hover>td {
+  background-color: #b3c0d1 !important;
+}
+
+.bg-purple {
+  background: #d3dce6;
+}
+
+.grid-content {
+  border-radius: 4px;
+  min-height: 50px;
+  position: relative;
+
+  .select-new {
+    position: absolute;
+    left: 50px;
+    top: 4px;
+  }
+
+  .delBatch {
+    position: absolute;
+    left: 20px;
+    top: 10px;
+  }
+
+  .pages {
+    position: absolute;
+    top: 10px;
+    left: 30%;
+  }
+}
 </style>

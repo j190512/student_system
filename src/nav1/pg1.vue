@@ -1,5 +1,5 @@
 <template>
-  <div>nav3-pg1</div>
+  <div>nav1-pg1</div>
 </template>
 
 <script>

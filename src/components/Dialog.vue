@@ -20,7 +20,7 @@
         <el-select v-model="form.major" placeholder="请选择专业">
           <el-option :label="'语文'" value="语文">语文</el-option>
           <el-option :label="'英语'" value="英语">英语</el-option>
-          <el-option :label="'数学'" value="数学">英语</el-option>
+          <el-option :label="'数学'" value="数学">数学</el-option>
         </el-select>
       </el-form-item>
       <el-form-item>
