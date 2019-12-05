@@ -19,7 +19,16 @@ const originalPush = VueRouter.prototype.push;
 VueRouter.prototype.push = function push(location) {
   return originalPush.call(this, location).catch(err => err);
 }
-
+router.beforeEach((to,from,next)=>{
+  if(to.path == '/login'){
+    sessionStorage.removeItem('admin')
+  }
+  if(!sessionStorage.getItem('admin') && to.path != '/login'){
+    next({path:'/login'})
+  }else{
+    next()
+  }
+})
 new Vue({
     router,
     store,

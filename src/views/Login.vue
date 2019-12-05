@@ -74,7 +74,7 @@ export default {
             //       data.account == this.ruleForm2.account &&
             //       data.pass == this.ruleForm2.pass
             //     ) {
-            //       this.$router.push({path:`/home/freshman`})
+            //       this.$router.push({path:`/home/first`})
             //     } else {
             //       this.$notify.error({
             //         title: "登录失败",
@@ -91,7 +91,9 @@ export default {
                   this.ruleForm2.account == 'admin' &&
                   this.ruleForm2.pass  == '123456'
                 ) {
-                  this.$router.push({path:`/home/freshman`})
+                  let admin = {account:"admin"}
+                  sessionStorage.setItem('admin', JSON.stringify(admin));
+                  this.$router.push({path:`/home/first`})
                 } else {
                   this.$notify.error({
                     title: "登录失败",

@@ -13,20 +13,30 @@ const getters = {
         let temp = state.data.filter(item => item.grade == n)
         return temp
     },
+    getMajorTotal: (state) => (subject) => {
+        let count = 0
+        for (let item of state.data) {
+            if (item.major == subject) {
+                count++;
+            }
+        }
+        return count
+    }
 };
 
 const mutations = {
     //自定义改变state初始值的方法，这里面的参数除了state之外还可以再传额外的参数(变量或对象)
     //这里面的参数除了state之外还传了需要增加的值
-    newStudent(state, newS) {
-        state.data += newS;
+    newStudent(state, form) {
+        state.data.push(form)
     },
     setStudent(state, obj) {
         // console.log(obj.form+' AAAA '+obj.oldId)
-        for(let i in  state.data){
-            if(state.data[i].id == obj.oldId){
-                state.data[i] = {... obj.form}
-                console.log(state.data[i])
+        for (let i in state.data) {
+            if (state.data[i].id == obj.oldId) {
+                state.data[i] = {
+                    ...obj.form
+                }
             }
         }
     },

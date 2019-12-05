@@ -20,6 +20,7 @@
         <el-select v-model="form.major" placeholder="请选择专业">
           <el-option :label="'语文'" value="语文">语文</el-option>
           <el-option :label="'英语'" value="英语">英语</el-option>
+          <el-option :label="'数学'" value="数学">英语</el-option>
         </el-select>
       </el-form-item>
       <el-form-item>
@@ -77,7 +78,7 @@ export default {
         }
       }
       if (value === "" || value.toString().length != 5) {
-        callback(new Error("请正确输入学号（6位数字）"));
+        callback(new Error("请正确输入学号（5位数字）"));
       } else {
         callback();
       }
@@ -86,7 +87,7 @@ export default {
       if (value == "") {
         callback(new Error("请输入名字"));
       } else if (!/^[\u4e00-\u9fa5]{2,7}$/.test(value)) {
-        callback(new Error("请输入中文名字"));
+        callback(new Error("请输入中文名字(2-7个汉字)"));
       } else {
         callback();
       }
@@ -113,17 +114,25 @@ export default {
           this.dialogVisible=false
           this.$emit("close",this.dialogVisible)
       },
-       //更改数据
+       // 更改/新增 数据
     onSubmitForm(formName) {
       this.$refs[formName].validate(valid => {
         
         if (valid) {
           // vuex 修改数据
-          this.$store.dispatch("setS",{"form":this.form,"oldId":this.id})
+          if(this.title == '编辑'){
+            this.$store.dispatch("setS",{"form":this.form,"oldId":this.id})
+          }
+          else if(this.title == '新增'){
+            this.$store.dispatch("newS",this.form)
+          }
+          else{
+            return false;
+          }
           this.dialogVisible = false
           this.$message({
             type: "success",
-            message: "修改成功!"
+            message: `${this.title}成功!`
           });
           // console.log("submit!");
         } else {

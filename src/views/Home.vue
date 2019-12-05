@@ -1,7 +1,8 @@
 <template>
   <el-container>
     <el-header>
-      <span>{{$route.path}}</span>
+      <div class="center"><span>当前位置: <strong>{{$route.name}} </strong></span></div>
+      <el-button class="btn" type="primary" @click="toLogin">退出登录</el-button>
     </el-header>
     <el-container>
       <el-aside width="200px">
@@ -22,11 +23,24 @@ export default {
         Aside
     },
     methods:{
+      toLogin(){
+        // console.log(this.$route)
+        this.$router.push({path:'/login'})
+      }
     }
 };
 </script>
 
 <style scoped>
+.center{
+  display: inline-block;
+  text-align: center
+}
+.btn{
+  position: fixed;
+  right: 65px;
+  margin-top: 10px
+}
 .title-name {
   color: red;
   text-decoration: underline;

@@ -6,8 +6,8 @@
         <!-- 查询 -->
         <div class="select-new">
           <el-form :inline="true" class="demo-form-inline">
-            <el-form-item label="姓名">
-              <el-input v-model="selectUser" placeholder="姓名"></el-input>
+            <el-form-item label="学号">
+              <el-input v-model="selectStu" placeholder="学号" @keyup.native="inputNumber" clearable></el-input>
             </el-form-item>
             <el-form-item>
               <el-button type="primary" @click="select">查询</el-button>
@@ -20,10 +20,11 @@
     </el-col>
     <!-- 数据展示 -->
     <el-table
-      :data="tableData"
+      :data="tableData.slice((currentPage-1)*pageSize,currentPage*pageSize)"
       style="width: 100%"
       stripe
       @selection-change="handleSelectionChange"
+      v-loading="loading"
     >
       <el-table-column type="selection" width="100" align="center"></el-table-column>
 
@@ -59,10 +60,10 @@
           background
           layout="total,prev, pager, next"
           class="pages"
-          :page-size="3"
-          :total="15"
-          :current-page="2"
-          :current-change="handleCurrentChange"
+          :page-size="pageSize"
+          :total="tableData.length"
+          :current-page="currentPage"
+          @current-change="handleCurrentChange"
         ></el-pagination>
       </div>
     </el-col>
@@ -83,48 +84,80 @@ export default {
       required: true
     }
   },
-  computed:{
-       tableData:function(){
-           console.log('数据更新')
-           return this.$store.getters.getData(this.grade)
-       },
+  mounted() {
+    this.getData();
   },
   data() {
     return {
+      tableData: [],
       delBatch: [], //存放的是 将删除的对象  （组成数组）
       delOne: "", //存放的是将删除对象的id
-      selectUser: "",
+      selectStu: "",
       form: {
         id: "",
         name: "",
         sex: "1",
         age: "",
         major: "语文",
-        grade:this.grade
+        grade: this.grade
       },
       show: false,
-      dialogTitle: ""
+      dialogTitle: "",
+      loading: false,
+      currentPage: 1,
+      pageSize: 6
     };
   },
   methods: {
+    //获取列表
+    getData() {
+      this.tableData = this.$store.getters.getData(this.grade);
+      this.loading = false;
+    },
+    inputNumber() {
+      this.selectStu = this.selectStu.replace(/[^\d.]/g, "");
+    },
     closed(flag) {
       this.show = flag;
       //关闭dialog form重置
       this.form = {
         id: "",
         name: "",
-        sex: "-1",
+        sex: "1",
         age: "",
         major: "语文",
-        index: -1 // 记录将修改数据的id
+        grade: this.grade
       };
+      this.getData();
     },
     //性别1 0转换
     formatSex(row, column) {
       return row.sex == 1 ? "男" : "女";
     },
     select() {
-      console.log("select!");
+      let item = {};
+      let temp = [];
+      // item = [...this.$store.getters.getSelect(this.selectStu)]
+      // item=this.$store.state.data.filter(item => item.id == this.selectStu)
+      if (this.selectStu != "") {
+        this.loading = true;
+        for (let i of this.$store.state.data) {
+          if (i.id == this.selectStu) {
+            item = { ...i };
+            item.name += `(${i.grade}年级)`;
+            temp.push(item);
+            this.tableData = temp;
+            this.loading = false;
+            return;
+          }
+        }
+      } else {
+        this.$message({
+          type: "error",
+          message: "没有数据!"
+        });
+        this.getData();
+      }
     },
     //提示
     tip(del) {
@@ -141,14 +174,12 @@ export default {
         type: "warning"
       })
         .then(() => {
-            
+          this.loading = true;
           this.del(del);
-          
           this.$message({
             type: "success",
             message: "删除成功!"
           });
-          
         })
         .catch(() => {
           this.$message({
@@ -189,18 +220,20 @@ export default {
         return;
       }
       // 判断  删除的是一个 还是 多个
-        
       if (Array.isArray(param)) {
-        this.$store.dispatch("delBatch",param)
+        this.$store.dispatch("delBatch", param);
+        this.getData();
         this.delBatch = [];
       } else {
-         
         //删除一个
-        this.$store.dispatch("del",param)
+        this.$store.dispatch("del", param);
+        this.getData();
         this.delOne = "";
       }
     },
-    handleCurrentChange() {},
+    handleCurrentChange(currentPage) {
+      this.currentPage = currentPage;
+    }
   }
 };
 </script>
@@ -210,6 +243,8 @@ export default {
 .wrap
   margin-left 30px
   padding 30px
+.wrap >>>.el-table--enable-row-hover .el-table__body tr:hover>td
+  background-color #b3c0d1 !important
 .bg-purple
   background #d3dce6
 .grid-content
