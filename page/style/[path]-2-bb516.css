@@ -1,0 +1,59 @@
+.menu[data-v-1a6fd97e] .el-submenu span {
+  font-weight: 700;
+  font-size: 16px;
+}
+.menu[data-v-1a6fd97e] .el-menu-item {
+  font-size: 12px;
+}
+.menu[data-v-1a6fd97e] .el-menu {
+  background-color: #c4ced9;
+}
+.menu[data-v-1a6fd97e] {
+  overflow: hidden;
+}
+.el-menu[data-v-1a6fd97e] {
+  background-color: #d3dce6;
+}
+.el-menu li .is-active[data-v-1a6fd97e] {
+  background-color: #c4ced9;
+}
+.el-menu .el-menu-item[data-v-1a6fd97e]:hover {
+  background-color: #e9eef3;
+}
+
+
+.center[data-v-6257e788]{
+  display: inline-block;
+  text-align: center
+}
+.btn[data-v-6257e788]{
+  position: fixed;
+  right: 65px;
+  margin-top: 10px
+}
+.title-name[data-v-6257e788] {
+  color: red;
+  text-decoration: underline;
+}
+.el-header[data-v-6257e788],
+.el-footer[data-v-6257e788] {
+  background-color: #b3c0d1;
+  color: #333;
+  text-align: center;
+  line-height: 60px;
+}
+.el-aside[data-v-6257e788] {
+  height: 100%;
+  background-color: #d3dce6;
+  color: #333;
+  text-align: center;
+  line-height: 200px;
+}
+.el-main[data-v-6257e788] {
+    /* overflow-y: scroll; */
+    padding:20px;
+    background-color: #E9EEF3;
+    color: #333;
+    /* text-align: center; */
+}
+
