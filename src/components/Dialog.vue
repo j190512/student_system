@@ -2,10 +2,10 @@
   <el-dialog :title="title"  width="40%" :visible.sync="dialogVisible" >
     <el-form ref="form" :model="form" label-width="60px" :rules="formRules" status-icon>
       <el-form-item label="学号" prop="id">
-        <el-input v-model.number="form.id" clearable></el-input>
+        <el-input v-model.number="form.id" clearable placeholder="5位数字"></el-input>
       </el-form-item>
       <el-form-item label="姓名" prop="name">
-        <el-input v-model="form.name" clearable></el-input>
+        <el-input v-model="form.name" clearable placeholder="2-7个汉字"></el-input>
       </el-form-item>
       <el-form-item label="性别">
         <el-radio-group v-model="form.sex">
