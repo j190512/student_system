@@ -8,3 +8,8 @@
   
 数据库 mysql
    运行 stu_system.sql 文件
+  
+ 
+ 贴两个 新增页 和 数据库 改动的截图 
+  ![Image text](https://img2018.cnblogs.com/i-beta/1789074/201912/1789074-20191209181025198-1848822994.png)
+   ![Image text](https://img2018.cnblogs.com/i-beta/1789074/201912/1789074-20191209181140342-422677344.png)
